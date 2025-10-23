@@ -1,0 +1,81 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Firebase and Google Services
+google-services.json
+firebase-debug.log
+firebase-debug.*.log
+*-credentials.json
+*-credentials.plist
+GoogleService-Info.plist
+GoogleService-Info-*.plist
+AppName/GoogleService-Info.plist
+App/App/GoogleService-Info.plist
+App/fastlane/report.xml
+App/ios/App/GoogleService-Info.plist
+App/ios/Runner/GoogleService-Info.plist
+android/app/google-services.json
+ios/GoogleService-Info.plist
+ios/Runner/GoogleService-Info.plist
+ios/firebase_app_id_file.json
+
+# Environment variables
+.env*
+!.env.example
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# generated native folders
+/ios
+/android
+
+# Build directories
+/build/
+/web-build/
+
+# Misc
+*.log
+*.pem
+*.p8
+*.key
+*.cer
+*.crt
