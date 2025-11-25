@@ -17,6 +17,7 @@ export const StudyGroupForm = ({ onSubmit, initialData = {} as Partial<StudyGrou
     ...initialData
   });
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validateForm = () => {
@@ -34,13 +35,18 @@ export const StudyGroupForm = ({ onSubmit, initialData = {} as Partial<StudyGrou
   };
 
   const handleSubmit = () => {
-    if (validateForm()) {
-      onSubmit({
-        ...formData,
-        createdAt: new Date(),
-        participants: []
-      } as StudyGroup);
+    console.log('[StudyGroupForm] Submit pressed');
+    if (!validateForm()) {
+      console.log('[StudyGroupForm] Validation failed', errors);
+      return;
     }
+    const payload = {
+      ...formData,
+      createdAt: new Date(),
+      participants: []
+    } as StudyGroup;
+    console.log('[StudyGroupForm] Submitting payload', payload);
+    onSubmit(payload);
   };
 
   const handleLocationSelect = (location: any) => {
@@ -104,17 +110,44 @@ export const StudyGroupForm = ({ onSubmit, initialData = {} as Partial<StudyGrou
           mode="outlined"
           style={styles.dateButton}
         >
-          {formData.dateTime?.toLocaleString() || 'Select Date & Time'}
+          {formData.dateTime ? formData.dateTime.toLocaleDateString() : 'Select Date'}
         </Button>
         {showDatePicker && (
           <DateTimePicker
             value={formData.dateTime || new Date()}
-            mode="datetime"
+            mode="date"
             display="default"
             onChange={(event, selectedDate) => {
               setShowDatePicker(false);
               if (selectedDate) {
-                setFormData({...formData, dateTime: selectedDate});
+                const current = formData.dateTime || new Date();
+                const updated = new Date(selectedDate);
+                updated.setHours(current.getHours(), current.getMinutes(), 0, 0);
+                setFormData({ ...formData, dateTime: updated });
+              }
+            }}
+          />
+        )}
+
+        <Button 
+          onPress={() => setShowTimePicker(true)}
+          mode="outlined"
+          style={styles.dateButton}
+        >
+          {formData.dateTime ? formData.dateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Select Time'}
+        </Button>
+        {showTimePicker && (
+          <DateTimePicker
+            value={formData.dateTime || new Date()}
+            mode="time"
+            display="default"
+            onChange={(event, selectedTime) => {
+              setShowTimePicker(false);
+              if (selectedTime) {
+                const base = formData.dateTime || new Date();
+                const updated = new Date(base);
+                updated.setHours(selectedTime.getHours(), selectedTime.getMinutes(), 0, 0);
+                setFormData({ ...formData, dateTime: updated });
               }
             }}
           />

@@ -8,12 +8,15 @@ import { AuthProvider, useAuth } from './src/context/AuthContext';
 import { AuthScreen } from './src/screens/Auth';
 import { HomeScreen } from './src/screens/HomeScreen';
 import { MapScreen } from './src/screens/MapScreen';
+import CreateSession from './src/screens/CreateSession';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 // Define the type for our navigation parameters
 export type RootStackParamList = {
   Map: undefined;
   Home: undefined;
   Auth: undefined;
+  CreateSession: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -31,6 +34,11 @@ const AppNavigator = () => {
         name="Home" 
         component={HomeScreen} 
         options={{ title: 'Study Buddies' }} 
+      />
+      <Stack.Screen
+        name="CreateSession"
+        component={CreateSession}
+        options={{ title: 'Create Study Group' }}
       />
       <Stack.Screen 
         name="Auth" 
@@ -64,9 +72,11 @@ const AppContent = () => {
 // Main App component
 export default function App() {
   return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
+    <PaperProvider>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </PaperProvider>
   );
 }
 

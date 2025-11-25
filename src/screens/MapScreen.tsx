@@ -21,9 +21,17 @@ export const MapScreen = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity onPress={logout} style={styles.signOutBtn}>
-          <Text style={styles.signOutText}>Sign out</Text>
-        </TouchableOpacity>
+        <View style={styles.headerActions}>
+          <TouchableOpacity
+            onPress={() => (navigation as any).navigate('CreateSession')}
+            style={styles.createBtn}
+          >
+            <Text style={styles.createText}>Create</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={logout} style={styles.signOutBtn}>
+            <Text style={styles.signOutText}>Sign out</Text>
+          </TouchableOpacity>
+        </View>
       ),
     });
   }, [navigation, logout]);
@@ -50,6 +58,21 @@ const styles = StyleSheet.create({
   map: {
     width: '100%',
     height: '100%',
+  },
+  headerActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  createBtn: {
+    marginRight: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    backgroundColor: '#007AFF',
+    borderRadius: 6,
+  },
+  createText: {
+    color: '#fff',
+    fontWeight: '600',
   },
   signOutBtn: {
     marginRight: 12,
